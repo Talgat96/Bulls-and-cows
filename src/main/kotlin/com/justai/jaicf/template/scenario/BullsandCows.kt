@@ -1,5 +1,6 @@
 import com.justai.jaicf.builder.Scenario
 
+
 val bullsAndCowsScenario = Scenario {
 
     state("start") {
