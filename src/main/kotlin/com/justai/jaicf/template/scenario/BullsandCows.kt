@@ -1,6 +1,5 @@
 import com.justai.jaicf.builder.Scenario
 
-
 val bullsAndCowsScenario = Scenario {
 
     state("start") {
@@ -38,14 +37,12 @@ val bullsAndCowsScenario = Scenario {
     }
 }
 
-// Генерация тайного числа
+data class GuessResult(val bulls: Int, val cows: Int)
+
 fun generateSecretNumber(): String {
     val digits = (0..9).toList().shuffled()
     return digits.take(4).joinToString("")
 }
-
-// Проверка угаданного числа
-data class GuessResult(val bulls: Int, val cows: Int)
 
 fun checkGuess(secretNumber: String, userGuess: String): GuessResult {
     var bulls = 0
