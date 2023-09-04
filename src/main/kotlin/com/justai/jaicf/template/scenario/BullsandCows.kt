@@ -3,11 +3,15 @@ import com.justai.jaicf.builder.Scenario
 val bullsAndCowsScenario = Scenario {
 
     state("start") {
+        activators {
+            regex("/start")
+        }
+
         action {
-            // Генерация тайного числа
+            // Генерируем тайные числа
             val secretNumber = generateSecretNumber()
             context.session["secretNumber"] = secretNumber
-            reactions.say("Я задумал 4-значное число с неповторяющимися цифрами. Попробуйте угадать!")
+            reactions.say("Здравствуйте! Давайте сыграем в игру «Быки и коровы». Я задумаю 4-значное число с неповторяющимися цифрами. Угаданная цифра с верной позицией - это бык, а просто угаданная цифра с неверной позицией - это корова. Теперь попробуйте угадать!")
         }
     }
 
@@ -20,7 +24,7 @@ val bullsAndCowsScenario = Scenario {
             val secretNumber = context.session["secretNumber"] as String
             val userGuess = request.input
 
-            // Проверка угаданного числа
+            // Проверяем угаданные числа
             val result = checkGuess(secretNumber, userGuess)
 
             if (result.bulls == 4) {
@@ -33,7 +37,10 @@ val bullsAndCowsScenario = Scenario {
     }
 
     fallback {
-        reactions.say("Пожалуйста, введите 4-значное число с неповторяющимися цифрами.")
+        reactions.sayRandom(
+            "Пожалуйста, введите 4-значное число с неповторяющимися цифрами.",
+            "Извините, я вас не понял, напишите 4-значное число"
+        )
     }
 }
 
